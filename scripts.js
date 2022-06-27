@@ -1,52 +1,55 @@
 const display1 = document.getElementById('display1')
 const display2 = document.getElementById('display2')
-let expression = ''
-let lastOperator;
+let firstValue = 0
+let expression = [firstValue]
 const buttons = document.querySelectorAll('button')
 
 buttons.forEach(button => button.addEventListener('click', () => {
-    if(isNaN(button.id) & button.id != '='){
-        lastOperator = button.id
-        display1.textContent = ''
-        display2.textContent = operate(button.id)
-        expression = '' 
-    }
-    if(!isNaN(button.id)){
-        if(display1.textContent === '0'){display1.textContent = ''}
-        expression += button.id
-        display1.textContent += button.id
-    }
     if(button.id ==='='){
-        display1.textContent=''
-        display2.textContent = operate(button.id)
-        expression = ''   
+        display1.textContent = operate(expression[1]) 
+
+    }
+
+    if(!isNaN(button.id)){
+        lastNumber = Number(button.id)
+        if (expression.length===1){expression.push('+')}
+        if (expression[2]===undefined){expression.push(button.id)}
+        else (expression[2] += button.id) 
+        display2.textContent += button.id
+        
+    }
+
+    if(isNaN(button.id) & button.id != '='){
+        console.log(expression)
+        display1.textContent = operate(expression[1])
+        lastOperator = button.id
+        expression.push(button.id)
+        display2.textContent += button.id
     }
 }))
 
-let firstValue = 0
+
 function operate(operator){
     switch(operator) {
         case '+':
-            firstValue += Number(expression)
+            if(isNaN(expression[2])){firstValue += lastNumber}
+            else{firstValue += Number(expression[2])}
             break;
-        case '-': 
-            firstValue -= Number(expression)
+        case '-':
+            if(isNaN(expression[2])){firstValue -= lastNumber}
+            else {firstValue -= Number(expression[2])}
             break;
         case '/':
-                if (Number(expression) === '') {firstValue = 0}
-                else {firstValue /= Number(expression)}
+            if (Number(expression[2]===0 || lastNumber === 0)){firstValue = 'You can\'t divide by zero'}
+            else if(isNaN(expression[2])){firstValue /= lastNumber}
+            else {firstValue /= Number(expression[2])}
             break;
         case '*':
-            firstValue *= Number(expression)
+            if(isNaN(expression[2])){firstValue *= lastNumber}
+            else {firstValue *= Number(expression[2])}
             break;
-        case '=':
-            if(lastOperator ==='+'){firstValue += Number(expression)}
-            else if(lastOperator ==='-'){firstValue -= Number(expression)}
-            else if (lastOperator === '/'){
-                if (Number(expression) === 0){firstValue = 'Error'}
-                else{firstValue /= Number(expression)}
-            }
     }
+    if(expression.length===3){expression = [firstValue]}
     return firstValue
 }
 
