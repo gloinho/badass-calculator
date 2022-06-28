@@ -5,6 +5,7 @@ let firstValue = 0
 let expression = [firstValue]
 
 buttons.forEach(button => button.addEventListener('click', () => {
+    button.classList.add('transition')
     if (firstValue === 'You can\'t divide by zero'){clearAll()}
     if(button.id ==='equal'){
         display1.textContent = operate(expression[1]) 
@@ -30,6 +31,7 @@ buttons.forEach(button => button.addEventListener('click', () => {
     lowerCaseDisplay1();
 }));
 
+buttons.forEach(button => button.addEventListener('transitionend', removeTransition))
 
 function operate(operator){
     switch(operator) {
@@ -83,3 +85,8 @@ function lowerCaseDisplay1(){
     }
 };
 
+function removeTransition(e){
+    if(e.propertyName === 'transform'){
+        e.target.classList.remove('transition')
+    }
+}
