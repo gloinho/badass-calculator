@@ -2,29 +2,38 @@ const display1 = document.getElementById('display1')
 const display2 = document.getElementById('display2')
 const buttons = document.querySelectorAll('button')
 let firstValue = 0
-let expression = [firstValue]
+let expression = ['']
 
 buttons.forEach(button => button.addEventListener('click', () => {
     button.classList.add('transition')
     if (firstValue === 'You can\'t divide by zero'){clearAll()}
     if(button.id ==='equal'){
-        display1.textContent = operate(expression[1]) 
-        showDisplay2(button)
+        expression.push(lastOperator)
+
+
+      
+
     };
     if(!isNaN(button.id) || button.id === '.'){
         lastNumber = Number(button.id)
-        if (expression.length===1){expression.push('+')}
-        if (expression[2]===undefined){expression.push(button.id)}
-        else (expression[2] += button.id) 
-        showDisplay2(button)
+        if(expression[0] === undefined){expression[0] = button.id}
+        else (expression[0] += button.id)
         console.log(expression)
+
+
     };
     if(isNaN(button.id) & button.id != 'equal' & button.id != '.'){
-        display1.textContent = operate(expression[1])
+        if(expression.length === 2){display1.textContent = operate ()}
         lastOperator = button.id
         expression.push(button.id)
-        showDisplay2(button)
+        console.log(expression)
+        
+        
+
     };
+    if(expression.length === 2){display1.textContent = operate ()}
+    console.log(expression)
+    
     if (button.id === 'clearAll'){
         clearAll()
     };
@@ -33,28 +42,31 @@ buttons.forEach(button => button.addEventListener('click', () => {
 
 buttons.forEach(button => button.addEventListener('transitionend', removeTransition))
 
-function operate(operator){
-    switch(operator) {
-        case '+':
-            if(isNaN(expression[2])){firstValue += lastNumber}
-            else{firstValue += Number(expression[2])}
-            break;
-        case '-':
-            if(isNaN(expression[2])){firstValue -= lastNumber}
-            else {firstValue -= Number(expression[2])}
-            break;
-        case '/':
-            if (Number(expression[2]===0 || lastNumber === 0)){firstValue = 'You can\'t divide by zero'}
-            else if(isNaN(expression[2])){firstValue /= lastNumber}
-            else {firstValue /= Number(expression[2])}
-            break;
-        case '*':
-            if(isNaN(expression[2])){firstValue *= lastNumber}
-            else {firstValue *= Number(expression[2])}
-            break;
+function operate(){
+    if(!isNaN(expression[1])){expression.reverse()}
+    if(expression[0] === '+' & expression[1] === '+'){firstValue += lastNumber}
+    else if (expression[0] === '-' & expression[1] ==='+' || expression[0] === '+' & expression[1] ==='-' ){firstValue = firstValue*(-1)}
+    else if (expression[0] === '-' & expression[1] === '-'){firstValue -= lastNumber}
+    else{
+        switch(expression[1]) {
+            case '+':
+                firstValue += Number(expression[0])
+                break;
+            case '-':
+                firstValue -= Number(expression[0])
+
+                break;
+            case '/':
+
+                break;
+            case '*':
+
+                break;
+        }
     }
-    if(expression.length===3){expression = [firstValue]}
-    return firstValue
+
+    if(expression.length===2){expression = ['']}
+    return firstValue 
 };
 
 
