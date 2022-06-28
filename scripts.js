@@ -5,6 +5,7 @@ let firstValue = 0
 let expression = [firstValue]
 
 buttons.forEach(button => button.addEventListener('click', () => {
+    if (firstValue === 'You can\'t divide by zero'){clearAll()}
     if(button.id ==='equal'){
         display1.textContent = operate(expression[1]) 
         showDisplay2(button)
@@ -51,7 +52,7 @@ function operate(operator){
             break;
     }
     if(expression.length===3){expression = [firstValue]}
-    return Number(firstValue.toFixed(6))
+    return firstValue
 };
 
 

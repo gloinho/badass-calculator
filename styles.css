@@ -1,11 +1,17 @@
 body{
-    display: flex;
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr max-content;
     align-items: center;
+    justify-items: center;
+    background-color: lightgray;
+}
+img{
+    filter: drop-shadow(2px 2px 10px  black)
 }
 #calculator {
     display:grid;
@@ -16,6 +22,7 @@ body{
     grid-template-areas: 'display display'
                          'numbers operators';
     border: 5px solid lightgrey;
+    box-shadow: 2px 2px 20px 1px black;
 
 
 }
