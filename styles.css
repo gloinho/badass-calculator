@@ -97,6 +97,7 @@ button{
     height: 100%;
     border: 1px solid lightgrey;  
     transition: all 0.05s;
+    cursor: pointer;
 }
 
 .number.transition,
