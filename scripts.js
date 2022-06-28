@@ -19,6 +19,7 @@ buttons.forEach(button => button.addEventListener('click', () => {
     };
 
     if(!isNaN(button.id) || button.id === '.'){
+        removePressedOperator()
         clearAfterEqual()
         if(expression[1] === undefined){expression[1] = button.id}
         else (expression[1] += button.id)
@@ -123,3 +124,9 @@ function backspace(){
         display2.textContent = display2.textContent.substring(0, display2.textContent.length -  1)
         }
 };
+
+const operators = document.querySelectorAll('.operator')
+operators.forEach(operator => operator.addEventListener('click', ()=> operator.classList.add('pressed')))
+function removePressedOperator(){
+    operators.forEach(operator => operator.classList.remove('pressed'))
+}
