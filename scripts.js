@@ -7,8 +7,11 @@ let expression = ['+']
 
 buttons.forEach(button => button.addEventListener('click', () => {
     button.classList.add('transition') //Button animation.
+    if(button.id === 'backspace'){
+        backspace()
+    };
 
-    if (result === 'You can\'t divide by zero'){clearAll()} 
+    if (result === 'You can\'t divide by zero'){clearAll()};
 
     if(button.id ==='equal'){
         operate()
@@ -21,9 +24,10 @@ buttons.forEach(button => button.addEventListener('click', () => {
         else (expression[1] += button.id)
         lastNumber = expression[1]
         showDisplay2(button)
+        console.log(expression)
     };
 
-    if(isNaN(button.id) & button.id != 'equal' & button.id != '.'){
+    if(isNaN(button.id) & button.id != 'equal' & button.id != '.' & button.id != 'backspace'){
         operate()
         lastOperator = button.id
         expression.push(button.id)
@@ -110,4 +114,12 @@ function clearAfterEqual(){
     if(display1.textContent === display2.textContent){
         clearAll()
     };
+};
+
+function backspace(){
+    if (expression[1] === '' || expression[1] === undefined){clearAll()}
+    else{
+        expression[1] = expression[1].substring(0, expression[1].length - 1)
+        display2.textContent = display2.textContent.substring(0, display2.textContent.length -  1)
+        }
 };

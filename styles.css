@@ -67,18 +67,9 @@ body{
     grid-template-rows: 1fr 1fr 1fr 1fr; 
 }
 
-#clearAll{
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 3;
-    grid-row-end: 5;
-}
-
 #equal{
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 3;  
 }
 
 button{
